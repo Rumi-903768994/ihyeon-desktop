@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>문이현의 작업실</title>
+<style>
+*{box-sizing:border-box} :root{font-family:system-ui,sans-serif;color:#242d36;background:#263b49} body{margin:0} button,input{font:inherit} button{cursor:pointer} button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #b6823a;outline-offset:3px} [hidden]{display:none!important}
+.wall{min-height:100dvh;background:radial-gradient(ellipse at 78% 28%,#779095 0,transparent 55%),linear-gradient(145deg,#172735,#405b65 60%,#20333f);color:#f2f5f5}
+#login{display:grid;place-items:center;padding:22px;text-align:center}.loginbox{max-width:420px;width:100%;padding:48px 28px;background:#192e3bdc;border:1px solid #ffffff45;border-radius:22px;box-shadow:0 24px 80px #0005}.avatar{display:grid;place-items:center;margin:0 auto 26px;width:72px;height:72px;background:#e5d4ac;color:#28353d;border-radius:50%;font:30px Georgia,serif}.eyebrow{letter-spacing:.22em;font-size:.74rem;color:#d5bd8d}.loginbox h1{font-size:2.1rem;margin:.5em}.loginbox button,.primary{background:#27505b;color:white;border:0;border-radius:8px;padding:10px 18px}.loginbox button{background:#e8d7af;color:#24333d;margin-top:12px}
+#desktop{position:relative;height:100dvh;overflow:hidden}.desktop-icons{padding:25px 14px;display:grid;gap:14px;width:125px}.shortcut{border:1px solid transparent;background:transparent;color:white;border-radius:12px;padding:10px 2px}.shortcut:hover{background:#ffffff25;border-color:#fff5}.shortcut span{display:block;font-size:30px;margin-bottom:5px}.desktop-mark{position:absolute;bottom:78px;right:30px;text-align:right;color:#e1e9eb;font-size:.78rem;letter-spacing:.15em;pointer-events:none}.desktop-mark strong{display:block;font-family:Georgia,serif;font-size:1.9rem;font-weight:400;letter-spacing:.02em}.taskbar{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:6px;padding:8px 12px;background:#12222de8;border-top:1px solid #ffffff30;min-height:54px}.taskbar button{border:0;background:#ffffff16;color:#fff;padding:7px 10px;border-radius:7px}.taskbar small{margin-left:auto;color:#d6e2e4;text-align:right}
+.window{position:absolute;z-index:2;inset:6% 7% 75px 145px;max-width:1080px;display:flex;flex-direction:column;background:#f8f7f3;color:#242d36;border:1px solid #8fa5ad;border-radius:13px;overflow:hidden;box-shadow:0 24px 72px #0a152b90}.bar{display:flex;align-items:center;justify-content:space-between;background:#e5ebeb;padding:9px 14px;border-bottom:1px solid #ced9da}.bar button{border:0;background:transparent;padding:4px 9px}.bar button:hover{background:#cbd6d6}.nav{padding:8px 14px;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:10px;min-height:46px}.nav span{overflow-wrap:anywhere}.nav button,.tile,.side button,.link,.cover-btn{border:1px solid #d7dedc;border-radius:8px;background:white;color:inherit;padding:8px 12px}.content{overflow:auto;flex:1;padding:clamp(14px,3vw,34px);overscroll-behavior:contain}.content h2{margin:0 0 12px;font-size:1.55rem}.content h3{margin:20px 0 9px}.muted{color:#52676c}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:14px 0}.tile{text-align:left;min-height:64px}.tile:hover,.side button:hover,.link:hover,.cover-btn:hover{background:#eaf0ee}.tile small{display:block;margin-top:5px;color:#52676c}.stack{display:grid;gap:8px}.link{text-align:left}.split{display:grid;grid-template-columns:minmax(120px,195px) 1fr;gap:20px}.side{display:grid;gap:6px;align-content:start}.side button{text-align:left}.side .active{background:#dce8e8;border-color:#a8c0c2}.bubble{margin:9px 0;padding:10px 12px;background:#e8eeed;border-radius:10px;width:fit-content;max-width:88%;line-height:1.55}.bubble.me{margin-left:auto;background:#e9debe}.bubble small{display:block;color:#435e64}.paper{white-space:pre-wrap;line-height:1.8;padding:18px;background:white;border:1px solid #ddd;border-radius:9px}.cover{width:min(245px,100%);aspect-ratio:2/3;display:grid;align-content:space-between;padding:23px;color:white;background:linear-gradient(145deg,var(--tone),#19252e);border-radius:3px 10px 10px 3px;box-shadow:5px 8px 18px #17283243;border-left:5px solid #ffffff36;text-align:left}.cover strong{font-family:Georgia,serif;font-size:1.65rem;line-height:1.4}.cover small{letter-spacing:.12em}.cover-btn{padding:8px}.cover-btn .cover{width:100%;min-height:150px}.catalog{padding:20px;border-radius:10px;background:#242e37;color:white}.catalog p{color:#e6dfcd}.unlock{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.unlock input{min-width:0;width:min(100%,280px);padding:9px;border:1px solid #839b9b;border-radius:7px}.status{min-height:1.4em;color:#7d422c}.history{list-style:none;padding:0}.history li{padding:10px 0;border-bottom:1px solid #ddd}.history time{color:#52676c;margin-right:10px}.badge{background:#e7d5a7;color:#302817;padding:2px 6px;border-radius:10px;font-size:.7rem}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+@media(max-width:660px){.window{inset:10px 9px 65px}.desktop-icons{width:auto;grid-template-columns:repeat(3,1fr);max-width:380px}.desktop-mark{right:17px}.split{grid-template-columns:1fr;gap:11px}.side{grid-template-columns:repeat(2,minmax(0,1fr))}.taskbar{padding:7px 5px;gap:4px}.taskbar button{padding:7px 5px;font-size:.85rem}}
+</style>
+</head><body>
+<main id="login" class="wall"><div class="loginbox"><div class="avatar" aria-hidden="true">文</div><div class="eyebrow">《오늘도 안녕하신가》</div><h1>문이현</h1><p>작업실 PC</p><button id="signin">로그인 →</button></div></main>
+<main id="desktop" class="wall" hidden>
+<div class="desktop-icons"><button class="shortcut" data-app="files"><span aria-hidden="true">🖥️</span>내 컴퓨터</button><button class="shortcut" data-app="chat"><span aria-hidden="true">💬</span>메신저 <b id="notice" class="badge">1</b></button><button class="shortcut" data-app="web"><span aria-hidden="true">🌐</span>인터넷</button></div>
+<div class="desktop-mark"><strong>문이현의 작업실</strong>LOCAL DESKTOP · 2026</div>
+<section id="window" class="window" aria-labelledby="caption" hidden><div class="bar"><strong id="caption"></strong><button id="close" aria-label="창 닫기">✕</button></div><div id="nav" class="nav"></div><div id="content" class="content"></div></section>
+<footer class="taskbar"><button id="lock">화면 잠금</button><button data-app="files">내 컴퓨터</button><button data-app="chat">메신저</button><button data-app="web">인터넷</button><small>작업실 PC<br>22:48</small></footer>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const works = [
+ ['비가 그친 자리','2013','#456578','비가 그친 뒤에도 우산을 접지 못하는 사람들의 이야기.','비는 이미 그쳤다. 그는 우산을 접고 나면 같이 걸을 이유도 하나 줄어든다고 생각했다.'],
+ ['우리가 머물던 계절','2016','#6d5840','한 철만 머무르기로 한 집에서 서로의 계절을 알아가는 이야기.','그 집에는 달력이 두 개였다. 한 사람은 떠날 날에 동그라미를 쳤고, 다른 사람은 장을 보는 날마다 줄을 그었다.'],
+ ['보통의 내일','2018','#5b6960','서로 없이도 살 수 있는 두 사람이 내일을 약속하는 이야기.','다음 주엔 뭘 먹을까. 그녀가 묻자 그는 잠시 생각했다. 아직 화요일이었다. 다음 주 메뉴를 벌써 정해야 한다는 게 조금 우스웠고, 그래서 좋았다.'],
+ ['아무 일도 없던 하루','2022','#61586e','아무 일도 없었다고 적은 하루에 남겨진 사소한 변화들.','일기에는 아무 일도 없었다고 썼다. 하지만 식탁의 의자를 벽 쪽으로 조금 밀어둔 건 어제까지 하지 않던 일이었다.']
+];
+const label = [
+ ['밤의 경계선','2015','#384866','늦은 밤에야 서로에게 질문할 수 있었던 두 사람.','질문하고도 그는 자리를 뜨지 않았다. 대답을 기다리는 동안, 벽시계가 그제야 들렸다.','2차 교정 기록','영상 메모 01:42. 질문 직후 장면을 끊었던 초고에 침묵을 남김. 대답이 늦어질수록 질문이 달라 보인다.'],
+ ['나쁜 밤의 규칙','2016','#744756','두 사람이 세운 규칙에 한 줄씩 예외가 생긴다.','그녀는 맨 아래 줄을 비워뒀다. 규칙을 어길 때가 아니라 고칠 때 필요한 자리라고 했다.','홍보 문구 반려','“규칙을 깨는 밤”은 반려. 이 사람은 규칙을 깨면 나머지 항목을 전부 다시 확인한다.'],
+ ['불순한 계약','2019','#705542','기한이 있는 계약에 기한을 적기 어려운 일이 생긴다.','그는 서명보다 먼저 물컵을 상대 쪽으로 밀었다. 그건 계약서 어디에도 없는 행동이었다.','편집 코멘트','정세원 · 물컵을 밀어주는 장면, 계약을 앞두고 너무 다정하지 않습니까?\n문이현 · 그게 더 수상해서 넣었습니다.'],
+ ['친절한 악의','2022','#526252','친절했던 한 장면이 상대의 기억에서는 다르게 남아 있다.','그녀는 문을 열어둔 채 나갔다. 그는 덕분에 살았다고 생각했다. 복도에 선 그녀는 그가 언제 문을 닫을지 기다리고 있었다.','시점 교체 메모','그에게 열린 문은 배려. 그녀에게 열린 문은 대답을 재촉하는 장치. 두 초고에서 문을 닫는 소리만 같다.'],
+ ['다정한 짐승의 밤','2025–2026','#683b4c','상대가 원하는 것을 안다고 믿던 사람이 다시 묻는 이야기.','그는 답을 짐작했지만, 이번에는 묻고 기다렸다.','최종본 비교','22:14:03  최종.txt\n그는 대답을 알고 있었다.\n\n22:14:21  진짜최종.txt\n그는 답을 짐작했지만, 이번에는 묻고 기다렸다.']
+];
+const forest = [
+ ['불 꺼진 뒤의 약속','2008.03.29','서로 다 안다고 믿는 사이에 낯선 규칙을 하나 더하는 상상.','다음 편은 있었는데 군대 가기 전에 못 올렸다. 그리고 왜 언니지.'],
+ ['문밖에 두고 온 말','2008.05.17','낯선 역할을 맡은 두 사람이 방을 나서면 평소 이름으로 돌아온다는 상상.','지금 보니 이름을 다시 부르는 대목이 제일 좋다. 앞에 형용사는 절반만 있어도 됐겠다.']
+];
+const chats = {
+ '정세원':[['정세원','첨부하신 파일이 둘 다 최종인데요.'],['문이현','수정 시간이 늦은 쪽이 최종입니다.'],['정세원','늦은 쪽이 18초 차이인데요.'],['문이현','그 18초 동안 생각이 바뀌었습니다.']],
+ '배준석':[['배준석','야, 글숲 아직 살아 있더라. 네 글에 답글 달던 사람도 그대로고.'],['문이현','아이디까지 기억해?'],['배준석','난 네 아이디보다 댓글을 더 잘 기억하지. 언니.'],['문이현','그걸 네가 왜 기억해.']],
+ '문정호':[['문정호','《아무 일도 없던 하루》 다시 읽었다. 의자를 밀어놓은 데서 한참 멈췄다.'],['문이현','그 문장 편집할 때 뺄까 했는데요.'],['문정호','다시 넣어주면 안 되냐고 전화할 뻔했겠구나.']],
+ '최미경':[['최미경','이번에 그린 배 색이 좀 이상하지?'],['문이현','그릇 쪽에 비친 색이랑 같아서 괜찮은데.'],['최미경','그건 잘 봤으면서 가족방에 내가 보낸 시간은 못 봤어?']],
+ '문서영':[['문서영','마감이라는 말 말고 몇 시에 오는지를 보내.'],['문이현','마감하고 가면 일곱 시.'],['문서영','그래. 네 문장에서 마감을 빼면 일곱 시잖아.']],
+ '문지영':[['문지영','오빠, 《아무 일도 없던 하루》에서 의자를 민 사람은 기억이나 할까?'],['문이현','너는 왜 기억 못 한다고 생각했어?'],['문지영','맨날 자기가 밀었으면 원래 거기 있는 줄 알 수도 있잖아.']],
+ '가족 단톡':[['최미경','일요일 저녁 여섯 시. 밥 안 먹고 와.'],['문이현','나 마감이라 조금 늦을 수도 있어.'],['문서영','쟤 마감이라고 하면 늦게 온다는 뜻이야.'],['문지영','그럼 오빠 몫은 제가 먼저 빼놓을게요.'],['문정호','밥은 먹고. 접시만 빼놔.']]
+};
+let unlocked = [];
+try { const saved = JSON.parse(localStorage.getItem('ihyeon-unlocks-v1') || '[]'); if (Array.isArray(saved)) unlocked = saved; } catch {}
+const has = key => unlocked.includes(key);
+function remember(key){if(!has(key)) unlocked.push(key);try{localStorage.setItem('ihyeon-unlocks-v1',JSON.stringify(unlocked));}catch{}}
+const norm = s => s.normalize('NFKC').replace(/[\s《》〈〉]/g,'').toLowerCase();
+const names={files:'내 컴퓨터',chat:'메신저',web:'인터넷'};
+let app='files';
+const state={files:['root'],chat:['정세원'],web:['favorites']};
+const back={files:[],chat:[],web:[]};
+let launcher;
+function openApp(name, origin){app=name;if(origin) launcher=origin;if(name==='chat') $('notice').hidden=true;$('window').hidden=false;render();$('close').focus();}
+function go(...route){back[app].push(state[app]);state[app]=route;render();}
+function jump(name,...route){app=name;go(...route);}
+function button(text,action,cls='link'){const el=document.createElement('button');el.className=cls;el.textContent=text;el.addEventListener('click',action);return el;}
+function add(tag,text,parent=$('content'),cls){const el=document.createElement(tag);if(text!==null)el.textContent=text;if(cls)el.className=cls;parent.append(el);return el;}
+function tile(title,detail,action,parent){const el=button(title,action,'tile');if(detail)add('small',detail,el);parent.append(el);return el;}
+const title=text=>add('h2',text);
+const hint=text=>add('p',text,$('content'),'muted');
+const paper=(text,parent=$('content'))=>add('div',text,parent,'paper');
+const grid=()=>add('div',null,$('content'),'grid');
+function cover(work,author,parent){const el=add('div',null,parent,'cover');el.style.setProperty('--tone',work[2]);add('small','작품 표지 · '+work[1],el);add('strong',work[0],el);add('small',author,el);}
+function promptKey(placeholder,handler){
+ const form=add('form',null,$('content'),'unlock');const input=add('input',null,form);input.placeholder=placeholder;input.setAttribute('aria-label',placeholder);input.required=true;input.autocomplete='off';
+ const submit=add('button','열기',form,'primary');submit.type='submit';const status=add('p','',$('content'),'status');status.setAttribute('role','status');
+ form.onsubmit=e=>{e.preventDefault();if(!handler(norm(input.value))){status.textContent='일치하는 이름을 찾지 못했습니다. 철자를 확인해 주세요.';input.focus();}};
+}
+const fileNames={root:'',work:'작업',do:'도연출판사',label:'레이블',forest:'글숲',info:'자료 정보',extra:'개인 폴더',book:'작품 폴더',doc:'문서 뷰어',old:'게시글 백업'};
+const webNames={favorites:'즐겨찾기',history:'방문 기록',publisher:'도연출판사',store:'딥페이지',author:'서림 작가 페이지',event:'딥페이지 기획전',public:'작품 상세',cafe:'글숲',post:'오래된 글 다시 읽기'};
+function render(){
+ $('caption').textContent=names[app];const nav=$('nav');nav.replaceChildren();const previous=button('←',()=>{state[app]=back[app].pop();render();});previous.disabled=!back[app].length;previous.setAttribute('aria-label','뒤로');nav.append(previous);
+ const [page,arg]=state[app];add('span',names[app]+(app==='files'&&fileNames[page]?'  /  '+fileNames[page]:app==='web'?'  /  '+webNames[page]:app==='chat'?'  /  '+page:''),nav);
+ $('content').replaceChildren();$('content').scrollTop=0;
+ if(app==='files')files(page,arg);else if(app==='web')web(page,arg);else chat(page);
+}
+function files(page,arg){
+ if(page==='root'){title('내 컴퓨터');const g=grid();tile('📁 작업','원고와 출판 자료',()=>go('work'),g);for(const f of ['문서','다운로드','사진'])tile('📁 '+f,'개인 폴더',()=>go('extra',f),g);return;}
+ if(page==='extra'){title(arg);paper({문서:'장보기.txt\n두부, 달걀, 우유. 커피는 아직 반 봉지 남음.',다운로드:'인쇄용 교정 기호 안내.pdf\n자주 쓰는 교정 부호를 다시 받아둠.',사진:'작업실 사진 메모.txt\n창가에 책을 쌓아뒀더니 오후마다 제일 위 표지만 먼저 따뜻해진다.'}[arg]);return;}
+ if(page==='work'){title('작업');const g=grid();tile('📁 도연출판사','일반소설 4편',()=>go('do'),g);tile('📁 레이블',has('label')?'작업 파일':'🔒 잠김',()=>go('label'),g);tile('📁 글숲',has('forest')?'옛 게시글 백업':'🔒 잠김',()=>go('forest'),g);return;}
+ if(page==='do'){title('도연출판사');const g=grid();works.forEach((w,i)=>tile(w[0],w[1],()=>go('book',['do',i]),g));return;}
+ if(page==='label'||page==='forest'){
+  const isLabel=page==='label';const list=isLabel?label:forest;
+  title(isLabel?'레이블':'글숲');
+  if(!has(page)){
+   hint(isLabel?'폴더 소유자의 필명을 입력하세요.':'백업한 게시글의 작성자 닉네임을 입력하세요.');
+   promptKey(isLabel?'필명':'작성자 닉네임',value=>{if(value!==norm(isLabel?'서림':'빨간구두'))return false;remember(page);render();return true;});return;
+  }
+  hint(isLabel?'작업용 원고와 공용 참고 자료':'대학 시절 게시글 백업');
+  const g=grid();
+  if(isLabel)tile('📁 자료 정보','의상 · 도구 · 영상',()=>go('info'),g);
+  list.forEach((w,i)=>{const k=page+i;if(has(k))tile(w[0],'열림',()=>isLabel?go('book',[page,i]):go('old',i),g);else add('div','🔒 '+(isLabel?'미확인 원고 ':'백업 게시글 ')+String(i+1).padStart(2,'0'),g,'tile');});
+  promptKey(isLabel?'작품 제목':'게시글 제목',value=>{const i=list.findIndex(w=>norm(w[0])===value);if(i<0)return false;remember(page+i);isLabel?go('book',[page,i]):go('old',i);return true;});return;
+ }
+ if(page==='book'){
+  const [group,i]=arg;const w=(group==='do'?works:label)[i];title(w[0]);hint((group==='do'?'문이현 · 도연출판사':'서림 · 딥페이지')+' · '+w[1]);
+  const g=grid();tile('표지','책 이미지',()=>go('doc',['cover',group,i]),g);tile('원고_발췌.txt','문서',()=>go('doc',['excerpt',group,i]),g);
+  if(group==='do'&&i===2)tile('헌사_인쇄직전.txt','마지막 수정 · 인쇄 전날',()=>go('doc',['dedication',group,i]),g);
+  if(group==='label'){if(i===4){tile('최종.txt','22:14:03',()=>go('doc',['first',group,i]),g);tile('진짜최종.txt','22:14:21',()=>go('doc',['last',group,i]),g);}tile(w[5],'작업 메모',()=>go('doc',['note',group,i]),g);}return;
+ }
+ if(page==='doc'){
+  const [kind,group,i]=arg;const w=(group==='do'?works:label)[i];title(w[0]);
+  if(kind==='cover')cover(w,group==='do'?'문이현':'서림',$('content'));
+  else paper({excerpt:w[4],dedication:'이 책의 마지막을 쓰게 해준 사람에게. 그리고 내가 계속 다음을 생각하게 만드는 사람에게.',note:w[6],first:'22:14:03 · 최종.txt\n\n그는 대답을 알고 있었다.',last:'22:14:21 · 진짜최종.txt\n\n그는 답을 짐작했지만, 이번에는 묻고 기다렸다.'}[kind]);return;
+ }
+ if(page==='old'){const w=forest[arg];title(w[0]);hint(w[1]+' · 빨간구두');paper('초고 발췌 메모\n'+w[2]+'\n\n백업 파일에 덧붙인 메모\n'+w[3]);return;}
+ title('자료 정보');const g=grid();
+ for(const item of ['의상','도구','영상'])tile(item,'취재 메모',()=>go('info',item),g);
+ if(arg){add('h3',arg);paper({의상:'착용감 메모.txt\n서 있는 사진만 세 장. 앉는 사진이 없는 데는 이유가 있을 것 같다. 일단 이 옷 입히고 저녁 먹이는 장면은 뺌.',도구:'소품 비교표.txt\n사진에선 조용해 보임. 책상 위에 내려놓으니 생각보다 소리가 큼. 옆방에 사람 있는 설정이면 이 장면부터 다시 써야 한다.',영상:'장면 연출 참고.html\n01:42 · 질문하자마자 화면이 넘어간다. 대답을 기다리는 쪽 얼굴이 더 궁금한데.\n\n《밤…》 2차 교정 때 정세원 씨도 같은 얘기함.'}[arg]);if(arg==='영상')$('content').append(button('정세원 · 예전 교정 대화 보기',()=>jump('chat','교정 기록')));}
+}
+function chat(person){
+ title('메신저');const layout=add('div',null,$('content'),'split');const side=add('div',null,layout,'side');
+ for(const p of Object.keys(chats))side.append(button(p,()=>go(p),p===person?'active':''));
+ const body=add('div',null,layout);add('h3',person==='교정 기록'?'정세원 · 예전 교정 대화':person,body);
+ const lines=person==='교정 기록'?[['정세원','《밤의 경계선》 2차 교정 확인했습니다. 질문 뒤에 대답할 시간은 좀 주시죠.'],['문이현','그러죠. 너무 빨리 잘랐습니다.']]:chats[person];
+ for(const [who,message] of lines){const box=add('div',null,body,'bubble'+(who==='문이현'?' me':''));add('small',who,box);add('span',message,box);}
+ if(person==='정세원'){
+  const attachments=add('div',null,body,'tabs');
+  for(const [file,kind] of [['최종.txt','first'],['진짜최종.txt','last']])attachments.append(button('📎 '+file,()=>{if(has('label4'))jump('files','doc',[kind,'label',4]);else $('attachment-status').textContent='이 파일은 잠긴 폴더에 있습니다.';}));
+  add('p','',body,'status').id='attachment-status';
+ }
+}
+function web(page,arg){
+ const tabs=add('div',null,$('content'),'tabs');tabs.append(button('☆ 즐겨찾기',()=>go('favorites')),button('◷ 방문 기록',()=>go('history')));
+ if(page==='favorites'){title('즐겨찾기');const list=add('div',null,$('content'),'stack');
+  for(const [t,url] of [['네이버','https://www.naver.com/'],['Google','https://www.google.com/']]){const a=add('a',t,list,'link');a.href=url;a.target='_blank';a.rel='noopener noreferrer';}
+  list.append(button('도연출판사',()=>go('publisher')),button('레이블 · 딥페이지',()=>go('store')));
+  add('small','자료 및 참고',$('content'),'muted');
+  list.append(button('국립중앙도서관',()=>go('history')),button('글숲 | 창작 카페',()=>go('cafe')),button('최근에 열었던 페이지',()=>go('history')));return;}
+ if(page==='history'){title('방문 기록');const list=add('ul',null,$('content'),'history');
+  for(const [time,t] of [['00:03','배달 최소 주문 금액'],['23:48','심야에 문 여는 세탁소'],['23:41','셔츠 단추 방향']]){const row=add('li',null,list);add('time',time,row);add('span',t,row);}
+  add('li',null,list).append(button('딥페이지 · 예전에 본 작품 상세',()=>go('public',3)));return;}
+ if(page==='publisher'){title('도연출판사');hint('작가 문이현 · 출간 도서');const g=grid();works.forEach(w=>tile(w[0],w[3],()=>{const panel=document.getElementById('publisher-cover');panel.replaceChildren();cover(w,'문이현',panel);},g));add('div',null).id='publisher-cover';return;}
+ if(page==='cafe'){title('글숲 | 창작 카페');hint('오래된 이야기들이 머무는 곳');paper('공지사항   ·   가입 인사   ·   자유게시판   ·   창작 게시판\n\n[공지] 이전 게시판 글은 아래 모음에서 찾아볼 수 있습니다.');$('content').append(button('오래된 글 다시 읽기',()=>go('post')));return;}
+ if(page==='post'){title('오래된 글 다시 읽기');for(const w of forest){add('h3',w[0]);hint(w[1]+' · 빨간구두');paper('빨구님 언니, 다음 편 기다려요.');}return;}
+ if(page==='public'){const w=label[arg];title(w[0]);hint('서림 · 딥페이지');cover(w,'서림',$('content'));add('p',w[3]);if(arg===4)hint('독자 댓글 · “질문 하나에 다음 화까지 기다리게 될 줄이야.”');return;}
+ const hero=add('div',null,$('content'),'catalog');add('h2','딥페이지',hero);add('p','신작 · 인기작 · 구간 기획전',hero);
+ if(page==='store'){add('h3','오늘의 신작');hint('연재와 단행본을 한곳에서 만나보세요.');add('h3','서림 작가의 인기작');}
+ else add('h3',page==='event'?'구간 기획전':'서림 · 인기 작품');
+ const g=grid();const featured=page==='event'?[2]:page==='author'?[4,1,2,3,0]:[4,1];
+ for(const i of featured){const el=button('',()=>go('public',i),'cover-btn');el.setAttribute('aria-label',label[i][0]);cover(label[i],'서림',el);g.append(el);}
+ $('content').append(button('서림 작가 · 전체 작품',()=>go('author')),button('구간 기획전',()=>go('event')));
+}
+document.querySelectorAll('[data-app]').forEach(el=>el.onclick=()=>openApp(el.dataset.app,el));
+$('signin').onclick=()=>{$('login').hidden=true;$('desktop').hidden=false;document.querySelector('.shortcut').focus();};
+$('lock').onclick=()=>{$('window').hidden=true;$('desktop').hidden=true;$('login').hidden=false;$('signin').focus();};
+$('close').onclick=()=>{$('window').hidden=true;launcher?.focus();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('window').hidden)$('close').click();});
+</script></body></html>
