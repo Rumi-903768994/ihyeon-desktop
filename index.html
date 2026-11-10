@@ -417,7 +417,7 @@ async function copyClue(text,control,card){
 function showClues(newIds=[]){
  const body=$('clue-body');const footer=$('clue-footer');
  body.replaceChildren();footer.replaceChildren();body.scrollTop=0;
- $('clue-kicker').textContent=newIds.length?'새 단서 획득':'단서 수첩';
+ $('clue-kicker').textContent=newIds.length?'새 단서 획득':'';
  add('p',$('clue-count').textContent+' 발견',body,'muted');
  const progress=add('progress',null,body);
  progress.max=Object.keys(storyClues).length;progress.value=Object.keys(storyClues).filter(id=>has(clueKey(id))).length;
@@ -500,7 +500,7 @@ function render(){
  const previous=button('←',()=>{state[app]=back[app].pop();render();});
  previous.disabled=!back[app].length;previous.setAttribute('aria-label','뒤로');nav.append(previous);
  const location=app==='files'&&page!=='root'?['내 PC',...back.files.filter(([key])=>key!=='root').map(([key,value])=>key==='extra'?value:key==='book'?(value[0]==='do'?works:label)[value[1]][0]:fileNames[key]),page==='book'?(arg[0]==='do'?works:label)[arg[1]][0]:caption].join('  ›  '):caption;
- add('span',app==='web'?caption+'  ›  '+webNames[page]:app==='chat'?caption+'  ›  '+page:location,nav);
+ add('span',app==='web'?caption+'  ›  '+webNames[page]:app==='chat'?caption+'  ›  '+chatName(page):location,nav);
  const content=$('content');content.replaceChildren();content.scrollTop=0;
  if(explorer){
   const layout=add('div',null,content,'explorer-body');
@@ -611,13 +611,15 @@ function files(page,arg,pane){
  for(const item of ['의상','도구','영상'])tile(item,'취재 메모',()=>go('info',item),g);
  if(arg){add('h3',arg);paper({의상:'착용감 메모.txt\n서 있는 사진만 세 장. 앉는 사진이 없는 데는 이유가 있을 것 같다. 일단 이 옷 입히고 저녁 먹이는 장면은 뺌.',도구:'소품 비교표.txt\n사진에선 조용해 보임. 책상 위에 내려놓으니 생각보다 소리가 큼. 옆방에 사람 있는 설정이면 이 장면부터 다시 써야 한다.',영상:'장면 연출 참고.html\n01:42 · 질문하자마자 화면이 넘어간다. 대답을 기다리는 쪽 얼굴이 더 궁금한데.\n\n《밤…》 2차 교정 때 정세원 씨도 같은 얘기함.'}[arg]);if(arg==='영상')$('content').append(button('정세원 · 예전 교정 대화 보기',()=>jump('chat','교정 기록')));}
 }
+const familyChatNames={문정호:'아버지(문정호)',최미경:'어머니(최미경)',문서영:'누나(문서영)',문지영:'동생(문지영)'};
+const chatName=name=>familyChatNames[name]||name;
 function chat(person){
  title('메신저');const layout=add('div',null,$('content'),'split');const side=add('div',null,layout,'side');
- for(const p of Object.keys(chats))side.append(button(p,()=>go(p),p===person?'active':''));
+ for(const p of Object.keys(chats))side.append(button(chatName(p),()=>go(p),p===person?'active':''));
  if(person==='배준석')acquireClues('forest-chat','forest-nickname');
- const body=add('div',null,layout);add('h3',person==='교정 기록'?'정세원 · 예전 교정 대화':person,body);
+ const body=add('div',null,layout);add('h3',person==='교정 기록'?'정세원 · 예전 교정 대화':chatName(person),body);
  const lines=person==='교정 기록'?[['정세원','《밤의 경계선》 2차 교정 확인했습니다. 질문 뒤에 대답할 시간은 좀 주시죠.'],['문이현','그러죠. 너무 빨리 잘랐습니다.']]:chats[person];
- for(const [who,message] of lines){const box=add('div',null,body,'bubble'+(who==='문이현'?' me':''));add('small',who,box);add('span',message,box);}
+ for(const [who,message] of lines){const box=add('div',null,body,'bubble'+(who==='문이현'?' me':''));add('small',chatName(who),box);add('span',message,box);}
  if(person==='정세원'){
   const attachments=add('div',null,body,'tabs');
   for(const [file,kind] of [['최종.txt','first'],['진짜최종.txt','last']])attachments.append(button('📎 '+file,()=>{if(has('label4'))jump('files','doc',[kind,'label',4]);else $('attachment-status').textContent='이 파일은 잠긴 폴더에 있습니다.';}));
